@@ -10,15 +10,23 @@ class Queue:
         self.dll = DoublyLinkedList()
 
     def enqueue(self, value):
-        self.dll.add_to_head(value)
+        self.dll.add_to_tail(value)
         self.size += 1
 
     def dequeue(self):
         if self.dll.head is None:
             return
         self.size -= 1
-        return self.dll.remove_from_()
+        return self.dll.remove_from_head()
 
 
     def len(self):
         return self.size
+
+
+"""
+Add to tail and remove from from head 
+queue is fifo
+-> x -> y -> z ->
+remove from head, add to tail
+"""
