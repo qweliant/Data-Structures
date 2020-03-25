@@ -45,6 +45,7 @@ class LRUCache:
     """
     def set(self, key, value):
         
+        # update valye
         if key in self.storage:
             
             node = self.storage[key]
@@ -57,7 +58,7 @@ class LRUCache:
         if len(self.storage) > self.limit:
             
             # delete the node
-            del self.map[self.ddl.tail.value[0]]
+            del self.map[self.queue.tail.value[0]]
             self.queue.remove_from_tail()
 
         # add most recently used
