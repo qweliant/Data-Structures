@@ -16,7 +16,8 @@ class Stack:
         self.size +=1
         
     def pop(self):
-
+        if self.dll.head is None:
+            return
         self.size -=1
         return self.dll.remove_from_tail()
 
