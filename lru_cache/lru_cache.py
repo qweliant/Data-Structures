@@ -24,9 +24,14 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        node = self.storage[key]
 
-        self.queue.move_to_front(node)
+        if key in self.storage:
+            # find the key in the DLL and move to the front
+            node = self.storage[key]
+            self.queue.move_to_front(node)
+            return node.value[1]
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -40,11 +45,21 @@ class LRUCache:
     """
     def set(self, key, value):
         
-        if key in self.storgae:
+        if key in self.storage:
             
             node = self.storage[key]
             node.value = (key, value)
+
+            # most recent
             self.queue.move_to_front(node)
             return 
         
-        
+        if len(self.storage) > self.limit:
+            
+            # delete the node
+            del self.map[self.ddl.tail.value[0]]
+            self.queue.remove_from_tail()
+
+        # add most recently used
+        self.queue.add_to_head((key, value))
+        self.storage[key] = self.queue.head
