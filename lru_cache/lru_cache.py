@@ -40,16 +40,11 @@ class LRUCache:
     """
     def set(self, key, value):
         
-        if self.key in self.storgae:
+        if key in self.storgae:
             
             node = self.storage[key]
-            node.value = value
+            node.value = (key, value)
             self.queue.move_to_front(node)
-            
-            return node.value
-
-        if len(self.storage) > self.limit:
-            node = self.storage[key]
-            self.queue.delete()
-            
-        # self.storage[key] = self.queue.add_to_head(value)
+            return 
+        
+        
