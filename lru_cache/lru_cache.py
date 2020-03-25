@@ -25,13 +25,15 @@ class LRUCache:
     """
     def get(self, key):
         
-        if key in self.storage:
+        if key not in self.storage:
+            return None
+
+        else:
             # find the key in the DLL and move to the front
             node = self.storage[key]
             self.queue.move_to_front(node)
             return node.value[1]
-        else:
-            return None
+        
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -50,17 +52,22 @@ class LRUCache:
             
             node = self.storage[key]
             node.value = (key, value)
-
             # most recent
             self.queue.move_to_front(node)
             return 
         
-        if len(self.storage) > self.limit:
+
+
+        if len(self.storage) >= self.limit:
             
-            # delete the node
-            del self.map[self.queue.tail.value[0]]
+            # delete the node from storage
+            # print("Removing", self.map[self.queue.tail.value[0]])
+
+            del self.storage[self.queue.tail.value[0]]
             self.queue.remove_from_tail()
 
         # add most recently used
+
+        # print(len(self.storage), key, self.limit)
         self.queue.add_to_head((key, value))
         self.storage[key] = self.queue.head
