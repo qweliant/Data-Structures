@@ -56,6 +56,7 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
+        
         self.max = self.value if self.value > self.max else self.max
         return self.max
 
@@ -77,6 +78,7 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
+        
         if self.left:
             self.left.in_order_print(node)
         print(self.value)
@@ -119,11 +121,22 @@ class BinarySearchTree:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        # prin one at beginning instead of end, which is trash
+        print(self.value) 
+        if self.left:
+            self.left.post_order_dft(node)
+        if self.right:
+            self.right.post_order_dft(node)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+
+        if self.left:
+            self.left.post_order_dft(node)
+        if self.right:
+            self.right.post_order_dft(node)
+        print(self.value)
+
 
     def custom_raise(self):
         if self.left and self.right is None:
@@ -152,3 +165,11 @@ bst.bft_print(bst)
 print('\n\n\n')
 
 bst.dft_print(bst)
+
+print('\n\n\n')
+
+bst.post_order_dft(bst)
+
+print('\n\n\n')
+
+bst.pre_order_dft(bst)
