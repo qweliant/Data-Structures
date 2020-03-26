@@ -56,12 +56,7 @@ class LRUCache:
             self.queue.move_to_front(node)
             return 
         
-
-
-        if len(self.storage) >= self.limit:
-            
-            # delete the node from storage
-            # print("Removing", self.map[self.queue.tail.value[0]])
+        if len(self.storage) == self.limit:
 
             del self.storage[self.queue.tail.value[0]]
             self.queue.remove_from_tail()
