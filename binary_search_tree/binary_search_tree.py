@@ -24,8 +24,11 @@ class BinarySearchTree:
         elif value >= self.value:
             if self.right:
                 leaf = self.right.insert(value)
+                self.max = value
+
             else:
                 self.right = leaf
+                self.max = value
         return leaf
         
 
@@ -34,9 +37,7 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        
-        self.custom_raise()
-
+    
         if target == self.value:
             return True
 
@@ -55,13 +56,12 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        print(self.value)
+        self.max = self.value if self.value > self.max else self.max
         return self.max
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        cb(self.value)
 
         if self.left is not None:
             self.left.for_each(cb)
@@ -69,17 +69,37 @@ class BinarySearchTree:
         if self.right is not None:
             self.right.for_each(cb)
 
+        cb(self.value)
+        
+
     # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if self.left:
+            self.left.in_order_print(node)
+        print(self.value)
+        if self.right:
+            self.right.in_order_print(node)       
+        
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        
+        queue = Queue() 
+        curr = node
+        while curr:
+            print(curr.value)
+            if curr.left:
+                queue.enqueue(curr.left)
+            if curr.right:
+                queue.enqueue(curr.right)
+            curr = queue.dequeue()
+            
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -100,3 +120,23 @@ class BinarySearchTree:
     def custom_raise(self):
         if self.left and self.right is None:
             raise ValueError('The tree is empty')
+
+
+
+
+bst = BinarySearchTree(1)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
+
+assert bst.contains(4),True
+
+bst.in_order_print(bst)
+
+print('\n\n\n')
+
+bst.bft_print(bst)
